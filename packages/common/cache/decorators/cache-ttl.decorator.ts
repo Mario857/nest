@@ -6,7 +6,7 @@ import { CACHE_TTL_METADATA } from '../cache.constants';
  *
  * For example: `@CacheTTL(5)`
  *
- * @param ttl number set the cache expiration time
+ * @param ttl number set the cache expiration time, use 0 to disable cache or Infinity to set non expiring cache
  *
  * @see [Caching](https://docs.nestjs.com/techniques/caching)
  *

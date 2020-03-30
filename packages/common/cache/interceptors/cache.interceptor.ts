@@ -39,7 +39,7 @@ export class CacheInterceptor implements NestInterceptor {
     const ttl =
       this.reflector.get(CACHE_TTL_METADATA, context.getHandler()) || null;
 
-    if (!key) {
+    if (!key || !ttl) {
       return next.handle();
     }
     try {
@@ -50,7 +50,7 @@ export class CacheInterceptor implements NestInterceptor {
 
       return next.handle().pipe(
         tap(response => {
-          const args = ttl ? [key, response, { ttl }] : [key, response];
+          const args = ttl !== Infinity ? [key, response, { ttl }] : [key, response];
           this.cacheManager.set(...args);
         }),
       );
